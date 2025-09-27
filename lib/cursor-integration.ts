@@ -74,9 +74,9 @@ export function initPortfolioCursor(): () => void {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
+
   let config: CursorOptions;
-  
+
   if (prefersReducedMotion) {
     config = accessibleCursorConfig;
   } else if (isMobile || isLowEnd) {
@@ -84,10 +84,10 @@ export function initPortfolioCursor(): () => void {
   } else {
     config = portfolioCursorConfig;
   }
-  
+
   return initCursor(config, {
-    onBurst: (x, y) => {
-      // Log burst events for analytics
+    onBurst: () => {
+      // We only track that a burst occurred, not the coordinates
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'cursor_burst', {
           event_category: 'interaction',
@@ -99,7 +99,7 @@ export function initPortfolioCursor(): () => void {
       // Add hover analytics
       const elementType = element.tagName.toLowerCase();
       const elementClass = element.className;
-      
+
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'cursor_hover', {
           event_category: 'interaction',
@@ -141,9 +141,9 @@ export function initThemedCursor(theme: 'blue' | 'purple' | 'green' | 'orange'):
       particle: ['#f59e0b', '#d97706', '#fbbf24', '#fcd34d']
     }
   };
-  
+
   const selectedTheme = themes[theme];
-  
+
   return initCursor({
     ...portfolioCursorConfig,
     colors: selectedTheme
@@ -157,19 +157,19 @@ export function initMonitoredCursor(): () => void {
   let frameCount = 0;
   let lastTime = performance.now();
   let fps = 60;
-  
+
   const updateFPS = () => {
     frameCount++;
     const currentTime = performance.now();
-    
+
     if (currentTime - lastTime >= 1000) {
       fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
       frameCount = 0;
       lastTime = currentTime;
-      
+
       // Log performance metrics
       console.log(`Cursor FPS: ${fps}`);
-      
+
       // Send to analytics if available
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', 'cursor_performance', {
@@ -179,13 +179,13 @@ export function initMonitoredCursor(): () => void {
         });
       }
     }
-    
+
     requestAnimationFrame(updateFPS);
   };
-  
+
   const destroy = initCursor(portfolioCursorConfig);
   updateFPS();
-  
+
   return destroy;
 }
 
@@ -193,10 +193,9 @@ export function initMonitoredCursor(): () => void {
  * Initialize cursor with interaction tracking
  */
 export function initTrackedCursor(): () => void {
-  const interactionCount = 0;
   let hoverCount = 0;
   let burstCount = 0;
-  
+
   return initCursor(portfolioCursorConfig, {
     onBurst: (x, y) => {
       burstCount++;

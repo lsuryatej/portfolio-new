@@ -580,7 +580,7 @@ class ParticleCursor {
     this.ctx.restore();
   }
 
-  private renderFluidEffect(_time?: number): void {
+  private renderFluidEffect(): void {
     // WebGL fluid rendering would go here
     // This is a placeholder for the full fluid simulation
     if (this.pixiApp) {
@@ -599,7 +599,7 @@ class ParticleCursor {
       return;
     }
     
-    const animate = (time: number) => {
+    const animate = () => {
       if (!this.isRunning) return;
       
       this.render();

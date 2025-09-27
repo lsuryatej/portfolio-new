@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
   Badge,
-  Separator,
+
   ThemeToggle,
   Input,
   Textarea,

@@ -3,7 +3,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { DURATIONS, EASING, VIEWPORT, motionTokens } from './tokens';
+import { DURATIONS, EASING, motionTokens } from './tokens';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {

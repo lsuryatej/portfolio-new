@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { ReactNode, forwardRef, useEffect, useState, useRef, useCallback } from 'react';
-import { DURATIONS, EASING, VIEWPORT, STAGGER, motionTokens } from './tokens';
+import { DURATIONS, VIEWPORT, motionTokens } from './tokens';
 import { prefersReducedMotion } from '../accessibility';
 import { cn } from '@/lib/utils';
 
