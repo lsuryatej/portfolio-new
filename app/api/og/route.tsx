@@ -1,6 +1,8 @@
 import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
 
+// Edge runtime is required for @vercel/og ImageResponse to work properly
+// This provides better performance for dynamic OG image generation
 export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {

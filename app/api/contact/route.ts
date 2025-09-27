@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { contactFormSchema } from '@/lib/validations/contact'
 import { rateLimit, getClientIP } from '@/lib/rate-limit'
 
-export const runtime = 'edge';
+// Using Node.js runtime for better compatibility and static generation
+// export const runtime = 'edge'; // Removed to allow static generation
 
 export async function POST(request: NextRequest) {
   try {
